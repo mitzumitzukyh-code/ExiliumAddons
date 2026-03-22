@@ -6,7 +6,7 @@
       "version": "3",
       "folder": "Exilium",
       "status": "available",
-      "changelog": "Version 3 - Fix inscripción mismo reino (SenderIsAdmin fallback), normalización realm en botón AÑADIR, sync inmediato al abrir panel sin admin online, fallbacks de versión corregidos a v3.",
+      "changelog": "Version 3 - Fix popup AUTORIZAR, FULL_SYNC admin broadcast, mensaje Heliotropo Infundido, fix inscripcion mismo reino.",
       "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v3/Exilium.zip"
     },
     {
