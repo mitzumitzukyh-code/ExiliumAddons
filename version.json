@@ -6,7 +6,7 @@
       "version": "3",
       "folder": "Exilium",
       "status": "available",
-      "changelog": "Version 3 - Fix bug PROGRESS_BAR attempt to index function value. Sistema estable.",
+      "changelog": "Version 3 - Fix inscripción mismo reino (SenderIsAdmin fallback), normalización realm en botón AÑADIR, sync inmediato al abrir panel sin admin online, fallbacks de versión corregidos a v3.",
       "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v3/Exilium.zip"
     },
     {
