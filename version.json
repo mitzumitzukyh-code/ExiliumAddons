@@ -3,11 +3,11 @@
     {
       "id": "exilium_pvp",
       "name": "Exilium PvP Rank",
-      "version": "3.1",
+      "version": "3.2",
       "folder": "Exilium",
       "status": "available",
-      "changelog": "Version 3.1 - Fix bug eliminar jugador: lista negra para evitar re-insercion en SYNC. El admin ya no necesita que los miembros reinstalen para que la eliminacion funcione.",
-      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v3.1/Exilium.zip"
+      "changelog": "Version 3.2 - Panel de Administracion remoto: eliminar, banear/desbanear jugadores, anuncios a la hermandad, modo mantenimiento, ping de miembros online. Fix bug eliminar jugador en SYNC.",
+      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v3.2/Exilium.zip"
     },
     {
       "id": "exilium_casino",
