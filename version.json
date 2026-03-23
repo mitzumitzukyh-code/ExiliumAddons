@@ -3,11 +3,11 @@
     {
       "id": "exilium_pvp",
       "name": "Exilium PvP Rank",
-      "version": "3",
+      "version": "3.1",
       "folder": "Exilium",
       "status": "available",
-      "changelog": "Version 3 - Fix popup AUTORIZAR, FULL_SYNC admin broadcast, mensaje Heliotropo Infundido, fix inscripcion mismo reino.",
-      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v3/Exilium.zip"
+      "changelog": "Version 3.1 - Fix bug eliminar jugador: lista negra para evitar re-insercion en SYNC. El admin ya no necesita que los miembros reinstalen para que la eliminacion funcione.",
+      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v3.1/Exilium.zip"
     },
     {
       "id": "exilium_casino",
