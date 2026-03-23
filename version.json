@@ -3,11 +3,11 @@
     {
       "id": "exilium_pvp",
       "name": "Exilium PvP Rank",
-      "version": "3.2",
+      "version": "4.3",
       "folder": "Exilium",
       "status": "available",
-      "changelog": "Version 3.2 - Panel de Administracion remoto: eliminar, banear/desbanear jugadores, anuncios a la hermandad, modo mantenimiento, ping de miembros online. Fix bug eliminar jugador en SYNC.",
-      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v3.2/Exilium.zip"
+      "changelog": "Version 4.3 - Fix iconos de clase (EVOKER incluido). Mensaje de version incompatible actualizado para indicar el instalador. Corrección de consistencia de versión TOC vs VERSION_CONTROL. Botón Exportar al Addon funcional en la web.",
+      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.3/Exilium_v4.3.zip"
     },
     {
       "id": "exilium_casino",
