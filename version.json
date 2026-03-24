@@ -1,14 +1,14 @@
-{
-  "addons": [
-    {
-      "id": "exilium_pvp",
-      "name": "Exilium PvP Rank",
-      "version": "4.3",
-      "folder": "Exilium",
-      "status": "available",
-      "changelog": "Version 4.3 - Fix iconos de clase (EVOKER incluido). Mensaje de version incompatible actualizado para indicar el instalador. Corrección de consistencia de versión TOC vs VERSION_CONTROL. Botón Exportar al Addon funcional en la web.",
-      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.3/Exilium_v4.3.zip"
-    },
+[
+  {
+    "id": "exilium_pvp",
+    "name": "Exilium PvP Rank",
+    "version": "4.4",
+    "folder": "Exilium",
+    "status": "available",
+    "changelog": "v4.4 — Fix iconos de clase (backslash en rutas textura), botón IMPORTAR visible en panel principal, referencias UpdateUI corregidas entre módulos, versión sincronizada.",
+    "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.4/Exilium_v4_4.zip"
+  }
+],
     {
       "id": "exilium_casino",
       "name": "Exilium Casino",
