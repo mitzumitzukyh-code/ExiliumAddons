@@ -7,7 +7,7 @@
       "folder": "Exilium",
       "status": "available",
       "changelog": "v4.4.1 — Fix iconos de clase (backslash en rutas textura), botón IMPORTAR visible en panel principal, referencias UpdateUI corregidas entre módulos, versión sincronizada.",
-      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.4.1/Exilium_v4_4.1.zip"
+      ""download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.4.1/Exilium_v4.4.1.zip""
     },
     {
       "id": "exilium_casino",
