@@ -3,11 +3,11 @@
     {
       "id": "exilium_pvp",
       "name": "Exilium PvP Rank",
-      "version": "4.4",
+      "version": "4.4.1",
       "folder": "Exilium",
       "status": "available",
-      "changelog": "v4.4 — Fix iconos de clase (backslash en rutas textura), botón IMPORTAR visible en panel principal, referencias UpdateUI corregidas entre módulos, versión sincronizada.",
-      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.4/Exilium_v4_4.zip"
+      "changelog": "v4.4.1 — Fix iconos de clase (backslash en rutas textura), botón IMPORTAR visible en panel principal, referencias UpdateUI corregidas entre módulos, versión sincronizada.",
+      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.4.1/Exilium_v4_4.1.zip"
     },
     {
       "id": "exilium_casino",
