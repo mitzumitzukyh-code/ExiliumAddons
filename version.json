@@ -7,25 +7,23 @@
     "status": "available",
     "changelog": "v4.4 — Fix iconos de clase (backslash en rutas textura), botón IMPORTAR visible en panel principal, referencias UpdateUI corregidas entre módulos, versión sincronizada.",
     "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.4/Exilium_v4_4.zip"
+  },
+  {
+    "id": "exilium_casino",
+    "name": "Exilium Casino",
+    "version": "3.2",
+    "folder": "ExiliumCasino",
+    "status": "development",
+    "progress": 30,
+    "changelog": "En desarrollo - Casino virtual con Pandacoins."
+  },
+  {
+    "id": "exilium_pase",
+    "name": "Pase de Batalla Exilium",
+    "version": "0.1",
+    "folder": "PaseDeBatallaExilium",
+    "status": "development",
+    "progress": 20,
+    "changelog": "En desarrollo - Sistema de progresion PvP."
   }
-],
-    {
-      "id": "exilium_casino",
-      "name": "Exilium Casino",
-      "version": "3.2",
-      "folder": "ExiliumCasino",
-      "status": "development",
-      "progress": 30,
-      "changelog": "En desarrollo - Casino virtual con Pandacoins."
-    },
-    {
-      "id": "exilium_pase",
-      "name": "Pase de Batalla Exilium",
-      "version": "0.1",
-      "folder": "PaseDeBatallaExilium",
-      "status": "development",
-      "progress": 20,
-      "changelog": "En desarrollo - Sistema de progresion PvP."
-    }
-  ]
-}
+]
