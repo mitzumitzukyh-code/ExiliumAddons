@@ -3,11 +3,11 @@
     {
       "id": "exilium_pvp",
       "name": "Exilium PvP Rank",
-      "version": "4.4.1",
+      "version": "4.4.2",
       "folder": "Exilium",
       "status": "available",
-      "changelog": "v4.4.1 — Fix iconos de clase (backslash en rutas textura), botón IMPORTAR visible en panel principal, referencias UpdateUI corregidas entre módulos, versión sincronizada.",
-      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.4.1/Exilium_v4.4.1.zip"
+      "changelog": "v4.4.2 — Fix importación web: broadcast bloqueado por season ID stale. BroadcastImportedData ahora lee el season ID live desde la API de Blizzard en vez del flag cacheado, evitando que la propagación a la guild se cancelara silenciosamente.",
+      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.4.2/Exilium_v4.4.2.zip"
     },
     {
       "id": "exilium_casino",
