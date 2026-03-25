@@ -3,11 +3,11 @@
     {
       "id": "exilium_pvp",
       "name": "Exilium PvP Rank",
-      "version": "4.4.2",
+      "version": "4.4.3",
       "folder": "Exilium",
       "status": "available",
-      "changelog": "v4.4.2 — Fix importación web: broadcast bloqueado por season ID stale. BroadcastImportedData ahora lee el season ID live desde la API de Blizzard en vez del flag cacheado, evitando que la propagación a la guild se cancelara silenciosamente.",
-      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.4.2/Exilium_v4.4.2.zip"
+      "changelog": "v4.4.3 — Fix sync al login: MEMBER_OPEN automático al entrar al mundo. Los miembros ahora reciben la tabla completa de jugadores (incluidos offline) sin necesidad de abrir la ventana del addon.",
+      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.4.3/Exilium_v4.4.3.zip"
     },
     {
       "id": "exilium_casino",
