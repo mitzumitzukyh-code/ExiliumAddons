@@ -3,11 +3,11 @@
     {
       "id": "exilium_pvp",
       "name": "Exilium PvP Rank",
-      "version": "4.4.3",
+      "version": "4.4.4",
       "folder": "Exilium",
       "status": "available",
-      "changelog": "v4.4.3 — Fix sync al login: MEMBER_OPEN automático al entrar al mundo. Los miembros ahora reciben la tabla completa de jugadores (incluidos offline) sin necesidad de abrir la ventana del addon.",
-      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.4.3/Exilium_v4.4.3.zip"
+      "changelog": "v4.4.4 — Actualización de versión. Bump general a 4.4.4 para sincronización correcta del sistema de control de versiones.",
+      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.4.4/Exilium-4_4_4.zip"
     },
     {
       "id": "exilium_casino",
