@@ -3,11 +3,11 @@
     {
       "id": "exilium_pvp",
       "name": "Exilium PvP Rank",
-      "version": "4.4.4",
+      "version": "4.4.5",
       "folder": "Exilium",
       "status": "available",
-      "changelog": "v4.4.4 — Actualización de versión. Bump general a 4.4.4 para sincronización correcta del sistema de control de versiones.",
-      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.4.4/Exilium-4_4_4.zip"
+      "changelog": "v4.4.5 — Se corrigió un error que causaba jugadores duplicados al exportar desde la web al addon.",
+      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.4.5/Exilium-4.4.5.zip"
     },
     {
       "id": "exilium_casino",
