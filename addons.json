@@ -6,7 +6,7 @@
       "version": "4.5",
       "folder": "Exilium",
       "status": "available",
-      "changelog": "v4.5 — Fix tabla niveles, popup sync post-instalador, max ratings sincronizados, Installer: fix 'Comprobando...' pegado.",
+      "changelog": "v4.5 — Fix tabla niveles, popup sync post-instalador, max ratings sincronizados, fix Comprobando pegado.",
       "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.5/Exilium_v4_5.zip"
     },
     {
