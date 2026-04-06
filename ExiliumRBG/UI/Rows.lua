@@ -20,14 +20,14 @@ local contentFrame = nil
 -- --------------------------------------------------------------------------
 
 local COLUMNS = {
-    { key = "class",      label = "",          width = 24,  dbKey = "class" },
-    { key = "name",       label = "Nombre",    width = 140, dbKey = "name" },
-    { key = "damage",     label = "Daño",      width = 80,  dbKey = "damage" },
-    { key = "healing",    label = "Sanación",  width = 80,  dbKey = "healing" },
-    { key = "deaths",     label = "Muertes",   width = 65,  dbKey = "deaths" },
-    { key = "kb",         label = "KB",        width = 50,  dbKey = "kb" },
-    { key = "honor",      label = "Honor",     width = 55,  dbKey = "honor" },
-    { key = "objectives", label = "Objetivos", width = 80,  dbKey = "objectives" },
+    { key = "class",      label = "",          width = 20,  dbKey = "class" },
+    { key = "name",       label = "Nombre",    width = 100, dbKey = "name" },
+    { key = "damage",     label = "Daño",      width = 58,  dbKey = "damage" },
+    { key = "healing",    label = "Sanación",  width = 60,  dbKey = "healing" },
+    { key = "deaths",     label = "Muertes",   width = 50,  dbKey = "deaths" },
+    { key = "kb",         label = "KB",        width = 38,  dbKey = "kb" },
+    { key = "honor",      label = "Honor",     width = 45,  dbKey = "honor" },
+    { key = "objectives", label = "Objetivos", width = 60,  dbKey = "objectives" },
 }
 
 -- --------------------------------------------------------------------------
@@ -60,13 +60,13 @@ local function CreateRow(parent, index)
 
     -- Icono de clase
     row.classIcon = row:CreateTexture(nil, "ARTWORK")
-    row.classIcon:SetSize(18, 18)
+    row.classIcon:SetSize(16, 16)
     row.classIcon:SetPoint("LEFT", row, "LEFT", CELL_PADDING, 0)
 
     -- Nombre
     row.nameText = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     row.nameText:SetPoint("LEFT", row.classIcon, "RIGHT", CELL_PADDING, 0)
-    row.nameText:SetWidth(134)
+    row.nameText:SetWidth(88)
     row.nameText:SetJustifyH("LEFT")
     row.nameText:SetWordWrap(false)
 
@@ -180,7 +180,7 @@ local function CreateHeaders(parent)
 
         local sortIndicator = ""
         if ExiliumRBGDB.sortBy == col.key then
-            sortIndicator = ExiliumRBGDB.sortDir == "desc" and " ▼" or " ▲"
+            sortIndicator = ExiliumRBGDB.sortDir == "desc" and " v" or " ^"
         end
         text:SetText(col.label .. sortIndicator)
 

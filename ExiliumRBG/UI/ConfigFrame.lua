@@ -108,7 +108,7 @@ end
 
 local function CreateConfigFrame()
     configFrame = CreateFrame("Frame", "ExiliumRBGConfigFrame", UIParent, "BackdropTemplate")
-    configFrame:SetSize(420, 480)
+    configFrame:SetSize(420, 560)
     configFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
     configFrame:SetClampedToScreen(true)
     configFrame:SetMovable(true)
@@ -162,7 +162,7 @@ local function CreateConfigFrame()
             end
         end)
     scaleSlider:SetPoint("TOPLEFT", configFrame, "TOPLEFT", 12, yOff)
-    yOff = yOff - 50
+    yOff = yOff - 46
 
     -- Botón reset posición
     local resetPosBtn = CreateFrame("Button", nil, configFrame, "BackdropTemplate")
@@ -185,7 +185,7 @@ local function CreateConfigFrame()
             ExiliumRBG.MainFrame:SetPoint("CENTER", UIParent, "CENTER", 400, 0)
         end
     end)
-    yOff = yOff - 32
+    yOff = yOff - 28
 
     -- ===================== SECCIÓN 2: VISUAL =====================
     local secVisual = configFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -223,7 +223,7 @@ local function CreateConfigFrame()
             end
         end)
     opacitySlider:SetPoint("TOPLEFT", configFrame, "TOPLEFT", 12, yOff)
-    yOff = yOff - 50
+    yOff = yOff - 46
 
     -- Slider fuente
     local fontSlider = CreateSlider(configFrame, "Tamaño fuente", 9, 18, 1,
@@ -231,7 +231,7 @@ local function CreateConfigFrame()
             ExiliumRBGDB.fontSize = val
         end)
     fontSlider:SetPoint("TOPLEFT", configFrame, "TOPLEFT", 12, yOff)
-    yOff = yOff - 50
+    yOff = yOff - 46
 
     -- Checkbox barras
     local barsCb = CreateCheckbox(configFrame, "Mostrar barras de progreso",
@@ -240,7 +240,7 @@ local function CreateConfigFrame()
             if ExiliumRBG.RefreshUI then ExiliumRBG.RefreshUI() end
         end)
     barsCb:SetPoint("TOPLEFT", configFrame, "TOPLEFT", 12, yOff)
-    yOff = yOff - 28
+    yOff = yOff - 26
 
     -- ===================== SECCIÓN 3: COLUMNAS =====================
     local secCols = configFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -276,7 +276,7 @@ local function CreateConfigFrame()
         end
     end
     if colCount % 4 ~= 0 then yOff = yOff - 24 end
-    yOff = yOff - 8
+    yOff = yOff - 6
 
     -- ===================== SECCIÓN 4: ORDENACIÓN =====================
     local secSort = configFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")

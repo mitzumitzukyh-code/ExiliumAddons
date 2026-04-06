@@ -69,7 +69,7 @@ local function CreateMainFrame()
     titleText:SetPoint("LEFT", titleBar, "LEFT", 6, 0)
     local tc = theme.titleColor
     titleText:SetTextColor(tc[1], tc[2], tc[3])
-    titleText:SetText("ExiliumRBG v1.0")
+    titleText:SetText("ExiliumRBG v1.0.1")
     f.titleText = titleText
 
     -- Botón X (cerrar)

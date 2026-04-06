@@ -133,7 +133,7 @@ end
 -- --------------------------------------------------------------------------
 
 local minimapBtn = nil
-local MINIMAP_RADIUS = 80
+local MINIMAP_RADIUS = 104
 local DEFAULT_MINIMAP_ANGLE = 225
 
 local function UpdateMinimapPos()
@@ -148,14 +148,15 @@ end
 local function CreateMinimapButton()
     minimapBtn = CreateFrame("Button", "ExiliumRBGMinimapBtn", Minimap)
     minimapBtn:SetSize(32, 32)
-    minimapBtn:SetFrameStrata("MEDIUM")
-    minimapBtn:SetFrameLevel(8)
+    minimapBtn:SetFrameStrata("HIGH")
+    minimapBtn:SetFrameLevel(10)
 
     -- Textura del botón (espadas cruzadas PvP)
-    local tex = minimapBtn:CreateTexture(nil, "BACKGROUND")
+    local tex = minimapBtn:CreateTexture(nil, "ARTWORK")
     tex:SetTexture("Interface\\Icons\\Achievement_PVP_H_A")
-    tex:SetSize(20, 20)
+    tex:SetSize(24, 24)
     tex:SetPoint("CENTER", 0, 0)
+    tex:SetTexCoord(0.05, 0.95, 0.05, 0.95)  -- recortar borde del ícono
 
     -- Borde circular
     local border = minimapBtn:CreateTexture(nil, "OVERLAY")
