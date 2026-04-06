@@ -129,6 +129,97 @@ function ExiliumRBG.ApplyTheme()
 end
 
 -- --------------------------------------------------------------------------
+-- Minimap Button
+-- --------------------------------------------------------------------------
+
+local minimapBtn = nil
+local MINIMAP_RADIUS = 80
+local DEFAULT_MINIMAP_ANGLE = 225
+
+local function UpdateMinimapPos()
+    if not minimapBtn then return end
+    local angle = ExiliumRBGDB.minimapAngle or math.rad(DEFAULT_MINIMAP_ANGLE)
+    local x = math.cos(angle) * MINIMAP_RADIUS
+    local y = math.sin(angle) * MINIMAP_RADIUS
+    minimapBtn:ClearAllPoints()
+    minimapBtn:SetPoint("CENTER", Minimap, "CENTER", x, y)
+end
+
+local function CreateMinimapButton()
+    minimapBtn = CreateFrame("Button", "ExiliumRBGMinimapBtn", Minimap)
+    minimapBtn:SetSize(32, 32)
+    minimapBtn:SetFrameStrata("MEDIUM")
+    minimapBtn:SetFrameLevel(8)
+
+    -- Textura del botón (espadas cruzadas PvP)
+    local tex = minimapBtn:CreateTexture(nil, "BACKGROUND")
+    tex:SetTexture("Interface\\Icons\\Achievement_PVP_H_A")
+    tex:SetSize(20, 20)
+    tex:SetPoint("CENTER", 0, 0)
+
+    -- Borde circular
+    local border = minimapBtn:CreateTexture(nil, "OVERLAY")
+    border:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
+    border:SetSize(56, 56)
+    border:SetPoint("CENTER", 10, -10)
+
+    -- Highlight
+    local highlight = minimapBtn:CreateTexture(nil, "HIGHLIGHT")
+    highlight:SetTexture("Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight")
+    highlight:SetAllPoints()
+    highlight:SetBlendMode("ADD")
+
+    -- Click izquierdo → toggle ventana principal
+    minimapBtn:SetScript("OnClick", function(self, btn)
+        if btn == "LeftButton" then
+            if ExiliumRBG.ToggleMainFrame then
+                ExiliumRBG.ToggleMainFrame()
+            end
+        end
+    end)
+    minimapBtn:RegisterForClicks("LeftButtonUp")
+
+    -- Drag para mover alrededor del minimapa
+    minimapBtn:RegisterForDrag("LeftButton")
+    minimapBtn:SetScript("OnDragStart", function(self)
+        self.dragging = true
+    end)
+    minimapBtn:SetScript("OnDragStop", function(self)
+        self.dragging = false
+    end)
+    minimapBtn:SetScript("OnUpdate", function(self)
+        if self.dragging then
+            local mx, my = Minimap:GetCenter()
+            local cx, cy = GetCursorPosition()
+            local scale = UIParent:GetEffectiveScale()
+            cx, cy = cx / scale, cy / scale
+            local angle = math.atan2(cy - my, cx - mx)
+            ExiliumRBGDB.minimapAngle = angle
+            UpdateMinimapPos()
+        end
+    end)
+
+    -- Tooltip al hover
+    minimapBtn:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+        GameTooltip:AddLine("ExiliumRBG", 0, 0.7, 1)
+        GameTooltip:AddLine("Click: Mostrar/Ocultar", 1, 1, 1)
+        GameTooltip:AddLine("Drag: Mover botón", 0.7, 0.7, 0.7)
+        GameTooltip:Show()
+    end)
+    minimapBtn:SetScript("OnLeave", function()
+        GameTooltip:Hide()
+    end)
+
+    -- Default angle si no hay guardado
+    if not ExiliumRBGDB.minimapAngle then
+        ExiliumRBGDB.minimapAngle = math.rad(DEFAULT_MINIMAP_ANGLE)
+    end
+
+    UpdateMinimapPos()
+end
+
+-- --------------------------------------------------------------------------
 -- Inicialización de defaults
 -- --------------------------------------------------------------------------
 
@@ -190,6 +281,7 @@ eventFrame:SetScript("OnEvent", function(self, event, ...)
         local addonName = ...
         if addonName == "ExiliumRBG" then
             InitDefaults()
+            CreateMinimapButton()
             print(ADDON_PREFIX .. "v1.0.0 cargado. Usa /erbg para abrir.")
             self:UnregisterEvent("ADDON_LOADED")
         end

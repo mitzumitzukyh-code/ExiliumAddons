@@ -5,14 +5,21 @@
 
 local ADDON_PREFIX = "|cff00aaff[ExiliumRBG]|r "
 
+local FRAME_WIDTH  = 820
+local FRAME_HEIGHT = 560
+local PADDING      = 10
+local TITLE_HEIGHT = 30
+local LEFT_RATIO   = 0.55
+local SEPARATOR_W  = 2
+
 -- --------------------------------------------------------------------------
 -- Creación del frame principal
 -- --------------------------------------------------------------------------
 
 local function CreateMainFrame()
     local f = CreateFrame("Frame", "ExiliumRBGMainFrame", UIParent, "BackdropTemplate")
-    f:SetSize(680, 520)
-    f:SetPoint("CENTER", UIParent, "CENTER", ExiliumRBGDB.position.x or 400, ExiliumRBGDB.position.y or 0)
+    f:SetSize(FRAME_WIDTH, FRAME_HEIGHT)
+    f:SetPoint("CENTER", UIParent, "CENTER", ExiliumRBGDB.position.x or 0, ExiliumRBGDB.position.y or 0)
     f:SetClampedToScreen(true)
     f:SetMovable(true)
     f:EnableMouse(true)
@@ -49,13 +56,17 @@ local function CreateMainFrame()
     end)
 
     -- ----- Barra de título -----
-    local titleBar = CreateFrame("Frame", nil, f)
-    titleBar:SetHeight(28)
-    titleBar:SetPoint("TOPLEFT", f, "TOPLEFT", 8, -8)
-    titleBar:SetPoint("TOPRIGHT", f, "TOPRIGHT", -8, -8)
+    local titleBar = CreateFrame("Frame", nil, f, "BackdropTemplate")
+    titleBar:SetHeight(TITLE_HEIGHT)
+    titleBar:SetPoint("TOPLEFT", f, "TOPLEFT", PADDING, -PADDING)
+    titleBar:SetPoint("TOPRIGHT", f, "TOPRIGHT", -PADDING, -PADDING)
+    titleBar:SetBackdrop({
+        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+    })
+    titleBar:SetBackdropColor(0, 0, 0, 0.3)
 
     local titleText = titleBar:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-    titleText:SetPoint("LEFT", titleBar, "LEFT", 4, 0)
+    titleText:SetPoint("LEFT", titleBar, "LEFT", 6, 0)
     local tc = theme.titleColor
     titleText:SetTextColor(tc[1], tc[2], tc[3])
     titleText:SetText("ExiliumRBG v1.0")
@@ -63,14 +74,14 @@ local function CreateMainFrame()
 
     -- Botón X (cerrar)
     local closeBtn = CreateFrame("Button", nil, titleBar, "UIPanelCloseButton")
-    closeBtn:SetPoint("RIGHT", titleBar, "RIGHT", 0, 0)
+    closeBtn:SetPoint("RIGHT", titleBar, "RIGHT", 2, 0)
     closeBtn:SetScript("OnClick", function()
         f:Hide()
     end)
 
     -- Botón Config
     local configBtn = CreateFrame("Button", nil, titleBar, "BackdropTemplate")
-    configBtn:SetSize(60, 22)
+    configBtn:SetSize(64, 24)
     configBtn:SetPoint("RIGHT", closeBtn, "LEFT", -4, 0)
     configBtn:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
@@ -78,7 +89,7 @@ local function CreateMainFrame()
         edgeSize = 10,
         insets   = { left = 2, right = 2, top = 2, bottom = 2 },
     })
-    configBtn:SetBackdropColor(0.2, 0.2, 0.2, 0.8)
+    configBtn:SetBackdropColor(0.15, 0.15, 0.2, 0.9)
     local configText = configBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     configText:SetPoint("CENTER")
     configText:SetText("Config")
@@ -88,15 +99,15 @@ local function CreateMainFrame()
         end
     end)
     configBtn:SetScript("OnEnter", function(self)
-        self:SetBackdropColor(0.3, 0.3, 0.5, 1)
+        self:SetBackdropColor(0.25, 0.25, 0.45, 1)
     end)
     configBtn:SetScript("OnLeave", function(self)
-        self:SetBackdropColor(0.2, 0.2, 0.2, 0.8)
+        self:SetBackdropColor(0.15, 0.15, 0.2, 0.9)
     end)
 
     -- Botón Exportar
     local exportBtn = CreateFrame("Button", nil, titleBar, "BackdropTemplate")
-    exportBtn:SetSize(70, 22)
+    exportBtn:SetSize(74, 24)
     exportBtn:SetPoint("RIGHT", configBtn, "LEFT", -4, 0)
     exportBtn:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
@@ -104,7 +115,7 @@ local function CreateMainFrame()
         edgeSize = 10,
         insets   = { left = 2, right = 2, top = 2, bottom = 2 },
     })
-    exportBtn:SetBackdropColor(0.2, 0.2, 0.2, 0.8)
+    exportBtn:SetBackdropColor(0.15, 0.15, 0.2, 0.9)
     local exportText = exportBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     exportText:SetPoint("CENTER")
     exportText:SetText("Exportar")
@@ -114,24 +125,36 @@ local function CreateMainFrame()
         end
     end)
     exportBtn:SetScript("OnEnter", function(self)
-        self:SetBackdropColor(0.3, 0.3, 0.5, 1)
+        self:SetBackdropColor(0.25, 0.25, 0.45, 1)
     end)
     exportBtn:SetScript("OnLeave", function(self)
-        self:SetBackdropColor(0.2, 0.2, 0.2, 0.8)
+        self:SetBackdropColor(0.15, 0.15, 0.2, 0.9)
     end)
 
     -- ----- Área de contenido: dos columnas -----
+    local contentTop  = -(PADDING + TITLE_HEIGHT + 6)
+    local contentInner = FRAME_WIDTH - 2 * PADDING - 8 -- usable inner width
+    local leftWidth    = math.floor(contentInner * LEFT_RATIO)
+
     -- Columna izquierda: estadísticas (Rows)
     local leftPanel = CreateFrame("Frame", nil, f)
-    leftPanel:SetPoint("TOPLEFT", titleBar, "BOTTOMLEFT", 0, -4)
-    leftPanel:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 8, 8)
-    leftPanel:SetWidth(420)
+    leftPanel:SetPoint("TOPLEFT", f, "TOPLEFT", PADDING, contentTop)
+    leftPanel:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", PADDING, PADDING)
+    leftPanel:SetWidth(leftWidth)
     f.leftPanel = leftPanel
+
+    -- Separador vertical
+    local vSep = f:CreateTexture(nil, "ARTWORK")
+    vSep:SetWidth(SEPARATOR_W)
+    vSep:SetPoint("TOPLEFT", leftPanel, "TOPRIGHT", 4, 0)
+    vSep:SetPoint("BOTTOMLEFT", leftPanel, "BOTTOMRIGHT", 4, 0)
+    vSep:SetColorTexture(0.3, 0.5, 0.8, 0.5)
+    f.verticalSeparator = vSep
 
     -- Columna derecha: grupos y calls
     local rightPanel = CreateFrame("Frame", nil, f)
-    rightPanel:SetPoint("TOPLEFT", leftPanel, "TOPRIGHT", 4, 0)
-    rightPanel:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -8, 8)
+    rightPanel:SetPoint("TOPLEFT", leftPanel, "TOPRIGHT", PADDING, 0)
+    rightPanel:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -PADDING, PADDING)
     f.rightPanel = rightPanel
 
     -- Oculto por defecto, se muestra al entrar en RBG

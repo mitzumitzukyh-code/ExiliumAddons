@@ -13,6 +13,11 @@ local defenseList = {}
 -- Crear el panel de grupos (incrustado en rightPanel del MainFrame)
 -- --------------------------------------------------------------------------
 
+local GROUP_PADDING   = 10
+local PANEL_MIN_H     = 180
+local MEMBER_ROW_H    = 24
+local TITLE_FONT_SIZE = 14
+
 local function CreateGroupFrame()
     if not ExiliumRBG.MainFrame or not ExiliumRBG.MainFrame.rightPanel then return end
 
@@ -21,7 +26,7 @@ local function CreateGroupFrame()
     groupFrame = CreateFrame("Frame", "ExiliumRBGGroupFrame", parent, "BackdropTemplate")
     groupFrame:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, 0)
     groupFrame:SetPoint("TOPRIGHT", parent, "TOPRIGHT", 0, 0)
-    groupFrame:SetHeight(220)
+    groupFrame:SetHeight(PANEL_MIN_H + 70)
 
     groupFrame:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
@@ -29,34 +34,52 @@ local function CreateGroupFrame()
         tile     = true,
         tileSize = 16,
         edgeSize = 10,
-        insets   = { left = 2, right = 2, top = 2, bottom = 2 },
+        insets   = { left = 3, right = 3, top = 3, bottom = 3 },
     })
-    groupFrame:SetBackdropColor(0.08, 0.08, 0.12, 0.9)
+    groupFrame:SetBackdropColor(0.06, 0.06, 0.10, 0.95)
+
+    local theme = ExiliumRBG.GetTheme()
+    local panelWidth = math.floor((groupFrame:GetWidth() or 240) * 0.48)
 
     -- ----- Columna Ataque -----
-    local attackHeader = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    attackHeader:SetPoint("TOPLEFT", groupFrame, "TOPLEFT", 8, -8)
+    local attackHeader = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    attackHeader:SetPoint("TOPLEFT", groupFrame, "TOPLEFT", GROUP_PADDING, -GROUP_PADDING)
+    attackHeader:SetFont(attackHeader:GetFont(), TITLE_FONT_SIZE, "OUTLINE")
     attackHeader:SetText("|cffff4444ATAQUE|r")
     groupFrame.attackHeader = attackHeader
 
+    -- Divider bajo título Ataque
+    local attackDiv = groupFrame:CreateTexture(nil, "ARTWORK")
+    attackDiv:SetHeight(1)
+    attackDiv:SetPoint("TOPLEFT", attackHeader, "BOTTOMLEFT", 0, -4)
+    attackDiv:SetWidth(panelWidth)
+    attackDiv:SetColorTexture(0.6, 0.15, 0.15, 0.6)
+
     local attackPanel = CreateFrame("Frame", nil, groupFrame, "BackdropTemplate")
-    attackPanel:SetPoint("TOPLEFT", attackHeader, "BOTTOMLEFT", 0, -4)
-    attackPanel:SetSize(105, 150)
-    local theme = ExiliumRBG.GetTheme()
+    attackPanel:SetPoint("TOPLEFT", attackDiv, "BOTTOMLEFT", 0, -4)
+    attackPanel:SetSize(panelWidth, PANEL_MIN_H)
     local aBg = theme.attackBg
     attackPanel:SetBackdrop({ bgFile = "Interface\\Tooltips\\UI-Tooltip-Background" })
     attackPanel:SetBackdropColor(aBg[1], aBg[2], aBg[3], aBg[4])
     groupFrame.attackPanel = attackPanel
 
     -- ----- Columna Defensa -----
-    local defenseHeader = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    defenseHeader:SetPoint("TOPLEFT", groupFrame, "TOP", 8, -8)
+    local defenseHeader = groupFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    defenseHeader:SetPoint("LEFT", attackHeader, "LEFT", panelWidth + GROUP_PADDING, 0)
+    defenseHeader:SetFont(defenseHeader:GetFont(), TITLE_FONT_SIZE, "OUTLINE")
     defenseHeader:SetText("|cff4444ffDEFENSA|r")
     groupFrame.defenseHeader = defenseHeader
 
+    -- Divider bajo título Defensa
+    local defenseDiv = groupFrame:CreateTexture(nil, "ARTWORK")
+    defenseDiv:SetHeight(1)
+    defenseDiv:SetPoint("TOPLEFT", defenseHeader, "BOTTOMLEFT", 0, -4)
+    defenseDiv:SetWidth(panelWidth)
+    defenseDiv:SetColorTexture(0.15, 0.15, 0.6, 0.6)
+
     local defensePanel = CreateFrame("Frame", nil, groupFrame, "BackdropTemplate")
-    defensePanel:SetPoint("TOPLEFT", defenseHeader, "BOTTOMLEFT", 0, -4)
-    defensePanel:SetSize(105, 150)
+    defensePanel:SetPoint("TOPLEFT", defenseDiv, "BOTTOMLEFT", 0, -4)
+    defensePanel:SetSize(panelWidth, PANEL_MIN_H)
     local dBg = theme.defenseBg
     defensePanel:SetBackdrop({ bgFile = "Interface\\Tooltips\\UI-Tooltip-Background" })
     defensePanel:SetBackdropColor(dBg[1], dBg[2], dBg[3], dBg[4])
@@ -64,26 +87,27 @@ local function CreateGroupFrame()
 
     -- ----- Botón Anunciar al raid -----
     local announceBtn = CreateFrame("Button", nil, groupFrame, "BackdropTemplate")
-    announceBtn:SetSize(210, 22)
-    announceBtn:SetPoint("BOTTOMLEFT", groupFrame, "BOTTOMLEFT", 8, 8)
+    announceBtn:SetHeight(26)
+    announceBtn:SetPoint("BOTTOMLEFT", groupFrame, "BOTTOMLEFT", GROUP_PADDING, GROUP_PADDING)
+    announceBtn:SetPoint("BOTTOMRIGHT", groupFrame, "BOTTOMRIGHT", -GROUP_PADDING, GROUP_PADDING)
     announceBtn:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
         edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
         edgeSize = 10,
         insets   = { left = 2, right = 2, top = 2, bottom = 2 },
     })
-    announceBtn:SetBackdropColor(0.15, 0.4, 0.15, 0.9)
-    local announceText = announceBtn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+    announceBtn:SetBackdropColor(0.12, 0.35, 0.12, 0.9)
+    local announceText = announceBtn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     announceText:SetPoint("CENTER")
     announceText:SetText("Anunciar grupos al raid")
     announceBtn:SetScript("OnClick", function()
         ExiliumRBG.AnnounceGroups()
     end)
     announceBtn:SetScript("OnEnter", function(self)
-        self:SetBackdropColor(0.2, 0.5, 0.2, 1)
+        self:SetBackdropColor(0.18, 0.5, 0.18, 1)
     end)
     announceBtn:SetScript("OnLeave", function(self)
-        self:SetBackdropColor(0.15, 0.4, 0.15, 0.9)
+        self:SetBackdropColor(0.12, 0.35, 0.12, 0.9)
     end)
 
     return groupFrame
@@ -95,20 +119,21 @@ end
 
 local function CreateMemberRow(parent, index, playerData, groupType)
     local row = CreateFrame("Frame", nil, parent, "BackdropTemplate")
-    row:SetHeight(18)
-    row:SetPoint("TOPLEFT", parent, "TOPLEFT", 4, -4 - (index - 1) * 20)
-    row:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -4, -4 - (index - 1) * 20)
+    row:SetHeight(MEMBER_ROW_H)
+    row:SetPoint("TOPLEFT", parent, "TOPLEFT", 4, -4 - (index - 1) * (MEMBER_ROW_H + 2))
+    row:SetPoint("TOPRIGHT", parent, "TOPRIGHT", -4, -4 - (index - 1) * (MEMBER_ROW_H + 2))
     row:EnableMouse(true)
 
     -- Icono clase
     local icon = row:CreateTexture(nil, "ARTWORK")
-    icon:SetSize(14, 14)
-    icon:SetPoint("LEFT", row, "LEFT", 0, 0)
+    icon:SetSize(16, 16)
+    icon:SetPoint("LEFT", row, "LEFT", 4, 0)
     GetClassIcon(playerData.classToken, icon)
 
     -- Nombre
     local nameText = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    nameText:SetPoint("LEFT", icon, "RIGHT", 3, 0)
+    nameText:SetPoint("LEFT", icon, "RIGHT", 4, 0)
+    nameText:SetWordWrap(false)
     local colorCode = GetClassColor(playerData.classToken)
     nameText:SetText(colorCode .. playerData.name .. "|r")
 

@@ -4,9 +4,10 @@
 -- ==========================================================================
 
 local ADDON_PREFIX = "|cff00aaff[ExiliumRBG]|r "
-local ROW_HEIGHT = 20
+local ROW_HEIGHT = 22
 local MAX_VISIBLE_ROWS = 15
-local HEADER_HEIGHT = 22
+local HEADER_HEIGHT = 24
+local CELL_PADDING = 6
 
 local rowPool = {}
 local headerFrame = nil
@@ -19,14 +20,14 @@ local contentFrame = nil
 -- --------------------------------------------------------------------------
 
 local COLUMNS = {
-    { key = "class",      label = "",          width = 22,  dbKey = "class" },
-    { key = "name",       label = "Nombre",    width = 120, dbKey = "name" },
-    { key = "damage",     label = "Daño",      width = 70,  dbKey = "damage" },
-    { key = "healing",    label = "Sanación",  width = 70,  dbKey = "healing" },
-    { key = "deaths",     label = "Muertes",   width = 55,  dbKey = "deaths" },
-    { key = "kb",         label = "KB",        width = 40,  dbKey = "kb" },
-    { key = "honor",      label = "Honor",     width = 50,  dbKey = "honor" },
-    { key = "objectives", label = "Objetivos", width = 60,  dbKey = "objectives" },
+    { key = "class",      label = "",          width = 24,  dbKey = "class" },
+    { key = "name",       label = "Nombre",    width = 140, dbKey = "name" },
+    { key = "damage",     label = "Daño",      width = 80,  dbKey = "damage" },
+    { key = "healing",    label = "Sanación",  width = 80,  dbKey = "healing" },
+    { key = "deaths",     label = "Muertes",   width = 65,  dbKey = "deaths" },
+    { key = "kb",         label = "KB",        width = 50,  dbKey = "kb" },
+    { key = "honor",      label = "Honor",     width = 55,  dbKey = "honor" },
+    { key = "objectives", label = "Objetivos", width = 80,  dbKey = "objectives" },
 }
 
 -- --------------------------------------------------------------------------
@@ -59,14 +60,15 @@ local function CreateRow(parent, index)
 
     -- Icono de clase
     row.classIcon = row:CreateTexture(nil, "ARTWORK")
-    row.classIcon:SetSize(16, 16)
-    row.classIcon:SetPoint("LEFT", row, "LEFT", 2, 0)
+    row.classIcon:SetSize(18, 18)
+    row.classIcon:SetPoint("LEFT", row, "LEFT", CELL_PADDING, 0)
 
     -- Nombre
     row.nameText = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    row.nameText:SetPoint("LEFT", row.classIcon, "RIGHT", 4, 0)
-    row.nameText:SetWidth(120)
+    row.nameText:SetPoint("LEFT", row.classIcon, "RIGHT", CELL_PADDING, 0)
+    row.nameText:SetWidth(134)
     row.nameText:SetJustifyH("LEFT")
+    row.nameText:SetWordWrap(false)
 
     -- Estadísticas (se crean dinámicamente)
     row.statTexts = {}
@@ -153,10 +155,14 @@ end
 local function CreateHeaders(parent)
     if headerFrame then headerFrame:Hide() end
 
-    headerFrame = CreateFrame("Frame", nil, parent)
+    headerFrame = CreateFrame("Frame", nil, parent, "BackdropTemplate")
     headerFrame:SetHeight(HEADER_HEIGHT)
     headerFrame:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, 0)
     headerFrame:SetPoint("TOPRIGHT", parent, "TOPRIGHT", 0, 0)
+    headerFrame:SetBackdrop({
+        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+    })
+    headerFrame:SetBackdropColor(0.03, 0.03, 0.08, 0.95)
 
     local theme = ExiliumRBG.GetTheme()
     local visibleCols = GetVisibleColumns()
@@ -168,12 +174,13 @@ local function CreateHeaders(parent)
         btn:SetPoint("LEFT", headerFrame, "LEFT", xOffset, 0)
 
         local text = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-        text:SetPoint("CENTER")
+        text:SetPoint("LEFT", btn, "LEFT", CELL_PADDING, 0)
         text:SetTextColor(theme.headerColor[1], theme.headerColor[2], theme.headerColor[3])
+        text:SetWordWrap(false)
 
         local sortIndicator = ""
         if ExiliumRBGDB.sortBy == col.key then
-            sortIndicator = ExiliumRBGDB.sortDir == "desc" and " v" or " ^"
+            sortIndicator = ExiliumRBGDB.sortDir == "desc" and " ▼" or " ▲"
         end
         text:SetText(col.label .. sortIndicator)
 
@@ -248,24 +255,23 @@ local function PopulateTeamRows(team, startIndex, yOffset, parent, maxDamage)
             row.bar:Hide()
         end
 
-        -- Estadísticas numéricas
-        local xOff = 0
+        -- Estadísticas numéricas — posición basada en anchos acumulados de columna
         local statIdx = 0
+        local accumulatedWidth = 0
         for _, col in ipairs(visibleCols) do
-            if col.key ~= "class" and col.key ~= "name" then
+            if col.key == "class" or col.key == "name" then
+                accumulatedWidth = accumulatedWidth + col.width
+            else
                 statIdx = statIdx + 1
                 if not row.statTexts[statIdx] then
                     row.statTexts[statIdx] = row:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
                 end
                 local st = row.statTexts[statIdx]
-                -- Posicionar después del nombre
-                local colXOffset = 22 + 124 -- classIcon + name
-                for ci = 1, statIdx - 1 do
-                    -- Sumar anchos de columnas stat previas
-                end
-                st:SetPoint("LEFT", row.nameText, "RIGHT", 4 + (statIdx - 1) * 65, 0)
-                st:SetWidth(col.width)
+                st:ClearAllPoints()
+                st:SetPoint("LEFT", row, "LEFT", accumulatedWidth + CELL_PADDING, 0)
+                st:SetWidth(col.width - CELL_PADDING * 2)
                 st:SetJustifyH("RIGHT")
+                st:SetWordWrap(false)
 
                 if col.key == "objectives" then
                     local objStr = ""
@@ -286,8 +292,8 @@ local function PopulateTeamRows(team, startIndex, yOffset, parent, maxDamage)
                 end
                 st:SetTextColor(0.9, 0.9, 0.9)
                 st:Show()
+                accumulatedWidth = accumulatedWidth + col.width
             end
-            xOff = xOff + col.width
         end
 
         -- Ocultar stats extra no usados

@@ -2,7 +2,7 @@
 ## Title: ExiliumRBG
 ## Notes: Estadísticas, grupos y calls para Rated Battlegrounds
 ## Author: Exilium
-## Version: 1.0.0
+## Version: 1.0.1
 ## SavedVariables: ExiliumRBGDB
 
 Core.lua

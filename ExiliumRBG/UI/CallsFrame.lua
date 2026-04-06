@@ -85,13 +85,18 @@ end
 -- Crear el panel de calls
 -- --------------------------------------------------------------------------
 
+local CALLS_PADDING = 10
+local CALL_BTN_H    = 32
+local CALL_BTN_GAP  = 6
+local CUSTOM_INPUT_H = 24
+
 local function CreateCallsFrame()
     if not ExiliumRBG.MainFrame or not ExiliumRBG.MainFrame.rightPanel then return end
 
     local parent = ExiliumRBG.MainFrame.rightPanel
 
     callsFrame = CreateFrame("Frame", "ExiliumRBGCallsFrame", parent, "BackdropTemplate")
-    callsFrame:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, -226)
+    callsFrame:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, -260)
     callsFrame:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", 0, 0)
 
     callsFrame:SetBackdrop({
@@ -100,13 +105,13 @@ local function CreateCallsFrame()
         tile     = true,
         tileSize = 16,
         edgeSize = 10,
-        insets   = { left = 2, right = 2, top = 2, bottom = 2 },
+        insets   = { left = 3, right = 3, top = 3, bottom = 3 },
     })
-    callsFrame:SetBackdropColor(0.08, 0.08, 0.12, 0.9)
+    callsFrame:SetBackdropColor(0.06, 0.06, 0.10, 0.95)
 
     -- Título
-    local title = callsFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    title:SetPoint("TOPLEFT", callsFrame, "TOPLEFT", 8, -6)
+    local title = callsFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    title:SetPoint("TOPLEFT", callsFrame, "TOPLEFT", CALLS_PADDING, -CALLS_PADDING)
     title:SetText("|cff00aaffCalls Rápidas|r")
 
     -- ----- Dropdown de puntos del mapa -----
@@ -114,7 +119,7 @@ local function CreateCallsFrame()
     mapDropdown:SetPoint("TOPLEFT", title, "BOTTOMLEFT", -16, -2)
     mapDropdown.selectedValue = nil
 
-    UIDropDownMenu_SetWidth(mapDropdown, 100)
+    UIDropDownMenu_SetWidth(mapDropdown, 110)
     UIDropDownMenu_SetText(mapDropdown, "Seleccionar base")
 
     UIDropDownMenu_Initialize(mapDropdown, function(self, level)
@@ -133,71 +138,79 @@ local function CreateCallsFrame()
         end
     end)
 
-    -- ----- Botones de call predefinidas -----
-    local btnWidth = 100
-    local btnHeight = 28
-    local spacing = 4
-    local startY = -50
+    -- ----- Botones de call predefinidas — Grilla 2x3 -----
+    local gridLeft = CALLS_PADDING
+    local gridTop  = -54
+    local availW   = 220  -- approximate usable width for 2 columns
+    local btnWidth = math.floor((availW - CALL_BTN_GAP) / 2)
 
     -- Fila 1: Atacar / Defender
-    local attackBtn = CreateCallButton(callsFrame, "|cffff4444ATACAR BASE|r", btnWidth, btnHeight,
+    local attackBtn = CreateCallButton(callsFrame, "|cffff4444ATACAR|r", btnWidth, CALL_BTN_H,
         "base_attack", function()
             return "[ExiliumRBG] ATACAR: " .. GetSelectedBase()
         end)
-    attackBtn:SetPoint("TOPLEFT", callsFrame, "TOPLEFT", 8, startY)
+    attackBtn:SetPoint("TOPLEFT", callsFrame, "TOPLEFT", gridLeft, gridTop)
 
-    local defendBtn = CreateCallButton(callsFrame, "|cff4444ffDEFENDER BASE|r", btnWidth, btnHeight,
+    local defendBtn = CreateCallButton(callsFrame, "|cff4444ffDEFENDER|r", btnWidth, CALL_BTN_H,
         "base_defense", function()
             return "[ExiliumRBG] DEF: " .. GetSelectedBase()
         end)
-    defendBtn:SetPoint("LEFT", attackBtn, "RIGHT", spacing, 0)
+    defendBtn:SetPoint("LEFT", attackBtn, "RIGHT", CALL_BTN_GAP, 0)
 
     -- Fila 2: INC / WIPE
-    local incBtn = CreateCallButton(callsFrame, "|cffff0000INC|r", btnWidth, btnHeight,
+    local incBtn = CreateCallButton(callsFrame, "|cffff0000INC|r", btnWidth, CALL_BTN_H,
         "inc", function()
             return "[ExiliumRBG] INC: " .. GetSelectedBase()
         end)
-    incBtn:SetPoint("TOPLEFT", attackBtn, "BOTTOMLEFT", 0, -spacing)
+    incBtn:SetPoint("TOPLEFT", attackBtn, "BOTTOMLEFT", 0, -CALL_BTN_GAP)
 
-    local wipeBtn = CreateCallButton(callsFrame, "|cffff8800WIPE|r", btnWidth, btnHeight,
+    local wipeBtn = CreateCallButton(callsFrame, "|cffff8800WIPE|r", btnWidth, CALL_BTN_H,
         "wipe", function()
             return "[ExiliumRBG] WIPE — back to " .. GetSelectedBase()
         end)
-    wipeBtn:SetPoint("LEFT", incBtn, "RIGHT", spacing, 0)
+    wipeBtn:SetPoint("LEFT", incBtn, "RIGHT", CALL_BTN_GAP, 0)
 
     -- Fila 3: GO / BACK
-    local goBtn = CreateCallButton(callsFrame, "|cff00ff00GO GO GO|r", btnWidth, btnHeight,
+    local goBtn = CreateCallButton(callsFrame, "|cff00ff00GO GO GO|r", btnWidth, CALL_BTN_H,
         "go", function()
             return "[ExiliumRBG] GO " .. GetSelectedBase()
         end)
-    goBtn:SetPoint("TOPLEFT", incBtn, "BOTTOMLEFT", 0, -spacing)
+    goBtn:SetPoint("TOPLEFT", incBtn, "BOTTOMLEFT", 0, -CALL_BTN_GAP)
 
-    local backBtn = CreateCallButton(callsFrame, "|cffaaaaaaBACK BACK|r", btnWidth, btnHeight,
+    local backBtn = CreateCallButton(callsFrame, "|cffaaaaaaBACK|r", btnWidth, CALL_BTN_H,
         "back", function()
             return "[ExiliumRBG] BACK — regroup"
         end)
-    backBtn:SetPoint("LEFT", goBtn, "RIGHT", spacing, 0)
+    backBtn:SetPoint("LEFT", goBtn, "RIGHT", CALL_BTN_GAP, 0)
+
+    -- ----- Divider antes de call personalizada -----
+    local customDiv = callsFrame:CreateTexture(nil, "ARTWORK")
+    customDiv:SetHeight(1)
+    customDiv:SetPoint("TOPLEFT", goBtn, "BOTTOMLEFT", 0, -CALLS_PADDING)
+    customDiv:SetPoint("TOPRIGHT", backBtn, "BOTTOMRIGHT", 0, -CALLS_PADDING)
+    customDiv:SetColorTexture(0.3, 0.5, 0.8, 0.4)
 
     -- ----- Call personalizada -----
     local customLabel = callsFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    customLabel:SetPoint("TOPLEFT", goBtn, "BOTTOMLEFT", 0, -10)
+    customLabel:SetPoint("TOPLEFT", customDiv, "BOTTOMLEFT", 0, -6)
     customLabel:SetText("Call personalizada:")
 
     customInput = CreateFrame("EditBox", "ExiliumRBGCustomCallInput", callsFrame, "BackdropTemplate")
-    customInput:SetSize(160, 22)
-    customInput:SetPoint("TOPLEFT", customLabel, "BOTTOMLEFT", 0, -2)
+    customInput:SetSize(160, CUSTOM_INPUT_H)
+    customInput:SetPoint("TOPLEFT", customLabel, "BOTTOMLEFT", 0, -4)
     customInput:SetBackdrop({
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
         edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
         edgeSize = 10,
-        insets   = { left = 2, right = 2, top = 2, bottom = 2 },
+        insets   = { left = 4, right = 4, top = 2, bottom = 2 },
     })
-    customInput:SetBackdropColor(0.1, 0.1, 0.1, 0.8)
+    customInput:SetBackdropColor(0.08, 0.08, 0.08, 0.9)
     customInput:SetFontObject("GameFontNormalSmall")
     customInput:SetAutoFocus(false)
     customInput:SetMaxLetters(200)
+    customInput:SetTextInsets(4, 4, 0, 0)
 
-    local sendCustomBtn = CreateCallButton(callsFrame, "Enviar", 50, 22,
+    local sendCustomBtn = CreateCallButton(callsFrame, "Enviar", 56, CUSTOM_INPUT_H,
         "custom", function()
             local text = customInput:GetText()
             if text and text ~= "" then
@@ -207,11 +220,11 @@ local function CreateCallsFrame()
             print(ADDON_PREFIX .. "Escribe un mensaje primero.")
             return nil
         end)
-    sendCustomBtn:SetPoint("LEFT", customInput, "RIGHT", 4, 0)
+    sendCustomBtn:SetPoint("LEFT", customInput, "RIGHT", CALL_BTN_GAP, 0)
 
     -- ----- Verificación de permisos (aviso visual) -----
     local permWarning = callsFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-    permWarning:SetPoint("BOTTOMLEFT", callsFrame, "BOTTOMLEFT", 8, 6)
+    permWarning:SetPoint("BOTTOMLEFT", callsFrame, "BOTTOMLEFT", CALLS_PADDING, 6)
     permWarning:SetTextColor(0.6, 0.6, 0.6)
     callsFrame.permWarning = permWarning
 
