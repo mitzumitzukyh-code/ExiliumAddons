@@ -1,0 +1,17 @@
+## Interface: 120001
+## Title: ExiliumRBG
+## Notes: Estadísticas, grupos y calls para Rated Battlegrounds
+## Author: Exilium
+## Version: 1.0.0
+## SavedVariables: ExiliumRBGDB
+
+Core.lua
+Data.lua
+Maps.lua
+UI\MainFrame.lua
+UI\Rows.lua
+UI\Tooltip.lua
+UI\GroupFrame.lua
+UI\CallsFrame.lua
+UI\ExportFrame.lua
+UI\ConfigFrame.lua

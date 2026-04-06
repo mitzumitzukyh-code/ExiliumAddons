@@ -6,8 +6,8 @@
       "version": "4.6",
       "folder": "Exilium",
       "status": "available",
-      "changelog": "v4.6 — Fix crítico XP fantasma, tabla niveles sincronizada, max ratings autoritativos.",
-      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.6/Exilium_v4_6.zip"
+      "changelog": "v4.6 – Fix crítico XP fantasma, tabla niveles sincronizada, max ratings autoritativos.",
+      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.6/Exilium_v4.6.zip"
     },
     {
       "id": "exilium_casino",
@@ -26,6 +26,15 @@
       "status": "development",
       "progress": 20,
       "changelog": "En desarrollo - Sistema de progresion PvP."
+    },
+    {
+      "id": "exilium_rbg",
+      "name": "ExiliumRBG",
+      "version": "1.0.0",
+      "folder": "ExiliumRBG",
+      "status": "available",
+      "changelog": "v1.0.0 - Addon para Raid Leaders en Rated Battlegrounds. Estadísticas, grupos ataque/defensa, calls rápidas y exportación CSV/JSON. Compatible con WoW Midnight Interface 120001.",
+      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/rbg-v1.0.0/ExiliumRBG_v1.0.0.zip"
     }
   ]
 }
