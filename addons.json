@@ -3,11 +3,11 @@
     {
       "id": "exilium_pvp",
       "name": "Exilium PvP Rank",
-      "version": "4.6",
+      "version": "4.6.1",
       "folder": "Exilium",
       "status": "available",
-      "changelog": "v4.6 – Fix crítico XP fantasma, tabla niveles sincronizada, max ratings autoritativos.",
-      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.6/Exilium_v4.6.zip"
+      "changelog": "v4.6.1 – Hotfix: tabla XP niveles 8/38/39/40 desincronizada con la web.",
+      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/pvp-v4.6.1/Exilium_v4.6.1.zip"
     },
     {
       "id": "exilium_casino",
