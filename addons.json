@@ -30,11 +30,16 @@
     {
       "id": "exilium_rbg",
       "name": "ExiliumRBG",
-      "version": "1.0.1",
+      "version": "1.0.0",
       "folder": "ExiliumRBG",
       "status": "available",
-      "changelog": "v1.0.1 - UI redesign + minimap button. Estadísticas, grupos ataque/defensa, calls rápidas y exportación CSV/JSON. Compatible con WoW Midnight Interface 120001.",
-      "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/rbg-v1.0.1/ExiliumRBG_v1.0.1.zip"
+      "changelog": "v1.0.0 - UI redesign + minimap button. Estadísticas, grupos ataque/defensa, calls rápidas y exportación CSV/JSON. Compatible con WoW Midnight Interface 120001.",
+      "download_url": "https://raw.githubusercontent.com/mitzumitzukyh-code/ExiliumAddons/main/ExiliumRBG_v1.0.0.zip"
     }
-  ]
+  ],
+  "installer": {
+    "version": "3.0.0",
+    "download_url": "https://github.com/mitzumitzukyh-code/ExiliumAddons/releases/download/installer-v3.0.0/Exilium_Installer.exe",
+    "changelog": "- Auto-update del instalador\n- Mejoras de estabilidad"
+  }
 }
